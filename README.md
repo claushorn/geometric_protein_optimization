@@ -1,11 +1,12 @@
-# Geometric Protein Optimization
+# Geometric Protein Optimization (GPO)
 
 Preprint:
 
 # Overview
 
-This repository provides all resources required to run our GPO algorithm BuildUp.
-BuildUp performs 
+We introduce GPO, an AI-native approach that optimizes protein function by combining a large number of mutations from diverse locations to fine-tune the global geometry of the protein.
+
+The GPO algorithm BuildUp performs a sequence of discrete gradient ascent steps to optimize a protein's function, applying one mutation at a time. 
 
 
 # Try it out live:
