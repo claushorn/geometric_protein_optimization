@@ -8,8 +8,9 @@ from BIND.data import BondType
 from torch_geometric.utils.sparse import dense_to_sparse
 from torch_geometric.data import Data
 import yaml
+from pathlib import Path
 
-with open('config.yaml') as f:
+with open(Path(__file__).parent.parent/'config.yaml') as f:
     config = yaml.safe_load(f)
 
 device = config['hardware']['device']    
@@ -21,7 +22,9 @@ def init_BIND(device):
     esm_model.eval()
     esm_model.to(device)
 
-    model = torch.load(config['scoring_function']['checkpoint'], map_location=device)
+    chkpnt = Path(config['scoring_function']['checkpoint_path']) / config['scoring_function']['checkpoint']
+    print(f"Loading model from {chkpnt}")
+    model = torch.load(chkpnt, map_location=device)
     model.eval()
     model.to(device)
     
@@ -121,7 +124,6 @@ def predict_binder(bind_model, esm_model, esm_tokeniser, device, sequences, liga
 
 if __file__  == '__main__':
     sequence = "MSTETLRLQKARATEEGLAFETPGGLTRALRDGCFLLAVPPGFDTTPGVTLCREFFRPVEQGGESTRAYRGFRDLDGVYFDREHFQTEHVLIDGPGRERHFPPELRRMAEHMHELARHVLRTVLTELGVARELWSEVTGGAVDGRGTEWFAANHYRSERDRLGCAPHKDTGFVTVLYIEEGGLEAATGGSWTPVDPVPGCFVVNFGGAFELLTSGLDRPVRALLHRVRQCAPRPESADRFSFAAFVNPPPTGDLYRVGADGTATVARSTEDFLRDFNERTWGDGYADFGIAPPEPAGVAEDGVRA"
-    #smile = "CC(=O)CCc1ccc2OCOc2c1"
     smile = "c1(ccc(cc1)c1ccccc1c1[n-]nnn1)Cn1c(c(nc1CCCC)Cl)CO"
 
     start_time = time.time()

@@ -101,7 +101,7 @@ def iterative_buildup_siteMutations_continue(lsitemutatoins, wildtype, smile, ma
     do2D = False
     updateImportances = True
     aaFineTune = False
-    banaylze_alternativeAAs = True
+    banaylze_alternativeAAs = False
 
     wildtype_reward = get_reward(wildtype,smile)
     #total_importance = topsequence_reward - wildtype_reward
@@ -190,6 +190,64 @@ def iterative_buildup_siteMutations_continue(lsitemutatoins, wildtype, smile, ma
                 aa_finetune(sequence, wildtype, smile)
 
     return lnmutations, lfoldincrease
+
+# interface used by frontend
+def run_buildup(wildtype, smile, sizeMutationSet, nSteps):
+    sequence = wildtype
+    lsites = [i for i in range(len(wildtype))]
+    total_importance = None  
+    wildtype_reward = get_reward(wildtype,smile)
+
+    importances = load_or_run(f'WTimportances_{complexName}.pkl', get_initial_importances_sites, sequence, lsites, wildtype_reward, smile, total_importance)
+    maxImportancesAll, mAAperSite = process_importancesAll(importances)
+    lsites_highMagnitude, _ = select_sites(importances,lsites,sizeMutationSet, [], 0)
+    lsitemutatoins = select_topk_aas_perSite(lsites_highMagnitude, importances, k=1)
+
+    # --- above foldevolution_highImportance ; below from iterative_buildup_siteMutations_continue 
+
+    brefine_sitemutations = True
+    backMutations = True
+    updateImportances = True
+
+    wildtype_reward = get_reward(wildtype,smile)
+    total_importance = None # will omit printing effect_remaining, in print_status()
+
+    print(f"Will continue adding mutations.")
+
+    sequence = wildtype
+    lnmutations = []
+    lfoldincrease = []
+    lsequences = []
+    ltried = set() 
+    for iStep in range(nSteps): # go through all of WT !
+        sequence_reward = get_reward(sequence,smile)
+        importances = get_initial_importances_siteMutations(sequence, lsitemutatoins, sequence_reward, smile, total_importance)
+        i = np.argsort([t[2] for t in importances])[-1] # choose highest importance, topk=1
+        if updateImportances:
+            for isite,_,importance in importances:
+                maxImportancesAll[isite] = importance
+
+        sequence = sequence[:lsitemutatoins[i][0]] + importances[i][1] + sequence[lsitemutatoins[i][0]+1:]
+
+        fold_increase = print_status(sequence, iStep+1, wildtype, smile, wildtype_reward, total_importance)
+        lnmutations.append(iStep+1)
+        lfoldincrease.append(fold_increase)
+        lsequences.append(sequence)
+        ltried.add( mutation_representation(sequence,wildtype) )
+
+        if brefine_sitemutations:
+            lsites_notChoosenYet = [i for i in range(len(wildtype)) if sequence[i] == wildtype[i]]
+            lsites_highMagnitude = sorted([(i,maxImportancesAll[i]) for i in lsites_notChoosenYet], key=lambda x: x[1], reverse=True)[:sizeMutationSet]
+            lsitemutatoins = [(i,mAAperSite[i]) for i,_ in lsites_highMagnitude]
+            #
+            if backMutations:
+                lbackMutations = [(i,aa) for i,aa in enumerate(wildtype) if sequence[i] != wildtype[i]]
+                for i,aa in lbackMutations: # avoid infinite loop !!! by going back to seq on trajectory
+                    if mutation_representation(sequence[:i] + aa + sequence[i+1:],wildtype) not in ltried:
+                        lsitemutatoins.append( (i,aa) )
+
+        yield [(lsequences[i], lfoldincrease[i], lnmutations[i]) for i in range(lsequences)]
+
 
 
 def aa_finetune(sequence, wildtype, smile):

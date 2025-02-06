@@ -1,4 +1,4 @@
-import modified_smiles_parser as pysmiles
+from . import modified_smiles_parser as pysmiles
 import networkx
 
 from .data import NodeInfo, EdgeInfo, lookup_atom_type, lookup_bond_type
