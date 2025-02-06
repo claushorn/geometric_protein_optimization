@@ -1,0 +1,11 @@
+protein:
+  complex: 3ebp
+scoring_function:
+  method: BIND
+  checkpoint: BIND_checkpoint_12042024.pth
+GPO_algorithm:
+  name: BuildUp
+  nmutations_goal: 40 # number of steps
+  sizeMutationSet: 10 # number of mutations evaluated in each step  
+hardware:
+  device: cuda # cpu or cuda
