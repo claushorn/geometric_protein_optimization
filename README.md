@@ -4,23 +4,24 @@ Preprint:
 
 # Overview
 
-We introduce GPO, an AI-native approach that optimizes protein function by combining a large number of mutations from diverse locations to fine-tune the global geometry of the protein.
+GPO uses AI scoring functions to combines a large number of residue substitutions from diverse locations and fine-tune the global geometry of the protein.
 
-The GPO algorithm BuildUp performs a sequence of discrete gradient ascent steps to optimize a protein's function, applying one mutation at a time. 
+The GPO algorithm BuildUp enables discrete gradient ascent. 
 
 
 # Try it out live:
-
+<stay tuned>
 
 # Choice of reward function and model
+The current implementation uses the sequence-based BIND model for protein-ligand binding affinity prediction. 
+We are working on extending this to more accurate structure-based scoring functions like [GEMS](https://github.com/camlab-ethz/GEMS). 
+
+# Software setup for local instalation: 
 
 
-# Private Instalation: Software Setup
+# Hardware requirements
 
-
-# Hardware Requirements
-
-We are using BuildUp with the BIND model as a reward function on a LS40 GPU, but it even works on a M3 Max MacBook Pro with 36GB of memory. 
+BuildUp with the BIND model as a reward function runs on a LS40 GPU, but it even works on a M3 Max MacBook Pro with 36GB of memory. 
 
 # License
 
