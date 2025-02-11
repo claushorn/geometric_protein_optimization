@@ -4,19 +4,20 @@ Preprint:
 
 # Overview
 
-GPO uses AI scoring functions to combines a large number of residue substitutions from diverse locations and fine-tune the global geometry of the protein.
+GPO uses AI scoring functions to fine-tune the global geometry of the protein by combining a large number of residue substitutions from all over the protein.
 
-The GPO algorithm BuildUp enables discrete gradient ascent. 
+The GPO algorithm BuildUp achieves unprecidented efficiency sinc it enables a form of *discrete gradient ascent* by leveraging the stylized facts of protein optimization we oberve (see paper). 
 
+# Try it out live
+<comming soon, stay tuned>
 
-# Try it out live:
-<stay tuned>
-
-# Choice of reward function and model
+# Choice of scoring function
 The current implementation uses the sequence-based BIND model for protein-ligand binding affinity prediction. 
 We are working on extending this to more accurate structure-based scoring functions like [GEMS](https://github.com/camlab-ethz/GEMS). 
 
-# Software setup for local instalation: 
+Do you need to optimize other types of protein function? Let us know! 
+
+# Software setup for local instalation
 
 
 # Hardware requirements
