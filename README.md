@@ -1,6 +1,6 @@
 # Geometric Protein Optimization (GPO)
 
-Preprint:
+Paper: [https://www.biorxiv.org/content/10.1101/2025.02.10.637504v1](https://www.biorxiv.org/content/10.1101/2025.02.10.637504v1)
 
 # Overview
 
@@ -18,7 +18,25 @@ We are working on extending this to more accurate structure-based scoring functi
 Do you need to optimize other types of protein function? Let us know! 
 
 # Software setup for local instalation
-
+* Installation
+  ```
+  git clone https://github.com/claushorn/geometric_protein_optimization.git
+  ```
+* Setup
+  Edit the complex name in config.yaml:
+  ```
+  protein:
+    complex: 3PRS
+  ```
+  And create a corresponding file for the complex, e.g. '3PRS.yaml' with protein sequence and ligand SMILES:
+  ```
+  protein: STGSATTTPIDSLDDAYITP...
+  ligand: CC(C)[CH](NC(=O)N(C)...
+  ```  
+* Run protein optimization
+  ```
+  python buildup.py
+  ```
 
 # Hardware requirements
 
@@ -31,3 +49,13 @@ This project is licensed under the MIT License. It is freely available for acade
 # Citation
 
 If you find this resource helpful, please cite the following publication:
+```
+@article {Horn_2025.02.10,
+	author = {Wirtz, Dario and Horn, Claus},
+	title = {Geometric Protein Optimization},
+	year = {2025},
+	doi = {10.1101/2025.02.10.637504},
+	url = {http://biorxiv.org/lookup/doi/10.1101/2025.02.10.637504},
+}
+```
+
