@@ -6,7 +6,7 @@ Paper: [https://www.biorxiv.org/content/10.1101/2025.02.10.637504v1](https://www
 
 GPO uses AI scoring functions to fine-tune the global geometry of the protein by combining a large number of residue substitutions from all over the protein.
 
-The GPO algorithm BuildUp achieves unprecidented efficiency by enabling *discrete gradient ascent* , leveraging three stylized facts of protein optimization that we identify (see paper). 
+The GPO algorithm BuildUp achieves unprecidented efficiency by enabling *discrete gradient ascent*, leveraging three stylized facts of protein optimization that we identify (see paper). 
 
 # Try it out live
 <comming soon, stay tuned>
