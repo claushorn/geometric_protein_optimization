@@ -22,7 +22,7 @@ Do you need to optimize other types of protein function? Let us know!
   ```
   git clone https://github.com/claushorn/geometric_protein_optimization.git
   ```
-* Setup
+* Setup  
   Edit the complex name in config.yaml:
   ```
   protein:
