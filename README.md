@@ -44,7 +44,7 @@ BuildUp with the BIND model as a reward function runs on a LS40 GPU, but it even
 
 # License
 
-This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/).
+This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0.txt).
 
 Use, modification, and redistribution are permitted for noncommercial purposes under the terms of the license. Commercial use requires separate written permission from the copyright holder.
 
